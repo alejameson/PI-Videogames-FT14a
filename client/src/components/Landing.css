@@ -1,0 +1,14 @@
+.TituloLand {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.Joystick {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content:flex-start;
+    align-items: center;
+}
