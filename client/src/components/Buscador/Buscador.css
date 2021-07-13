@@ -1,3 +1,10 @@
+.Titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 .listasearch {
     display: flex;    
     flex-flow: row wrap ; 

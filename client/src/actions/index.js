@@ -1,6 +1,7 @@
 const axios = require('axios').default;
-export const GET_ALL_GAMES = "GET_ALL_GAMES"
-export const SEARCH_GAMES = "SEARCH_GAMES"
+export const GET_ALL_GAMES = "GET_ALL_GAMES";
+export const SEARCH_GAMES = "SEARCH_GAMES";
+export const ORDER_GAMES = "ORDER_GAMES";
 
 export function getAllGames(){
     return function(dispatch){
@@ -20,6 +21,18 @@ export function SearchGames(titulo){
         .then((response) => {
             dispatch({
                 type: SEARCH_GAMES,
+                payload: response.data,
+            })
+        })
+    }
+}
+
+export function OrderGames(){
+    return function(dispatch){
+        return axios.get(`http://localhost:3001/videogames`)
+        .then((response) => {
+            dispatch({
+                type: ORDER_GAMES,
                 payload: response.data,
             })
         })

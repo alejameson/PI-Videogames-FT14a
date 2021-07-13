@@ -36,48 +36,67 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
-
-// PUEDE VENIR INFO EN QUERY
-server.get("/videogames" , (req, res) => {                   // PUEDE VENIR POR QUERY ?search={name}             
-  const { search } = req.query; 
- /*  console.log(search); */
-  if(search){                                               // FILTRO POR NOMBRE
-    const dbgameSearch = Videogame.findAll({
+//******************************************************************************************************************/
+//----------------------GET VIDEOGAMES o VIDEOGAMES?search=nombre -------------------------------------------------//
+//*****************************************************************************************************************/
+server.get("/videogames" , async (req, res) => {                           
+  const { search } = req.query;
+// PUEDE VENIR POR QUERY ?search={name}           
+  if(search){                                                                     
+    let AllSearchGames = [];                                             
+    const dbgameSearch = await Videogame.findAll({
       where: { name: search.toLowerCase() }, 
     })
-    const apigameSearch = axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}&search=${search}`) // PARA BUSCAR POR NOMBRE api.rawg.io/api/games?key=...&search=NOMBRE
- 
-    /* .then(response => console.log(JSON.stringify(response.data))) */
-    Promise.all([dbgameSearch, apigameSearch])
-    .then((result) => {
-      const [dbsearchResult, apisearchResult] = result;                                
-      let response = dbsearchResult.concat(apisearchResult.data.results);
-      return res.json(response);
-      
-      /* if(dbsearchResult){                               //EN EL CASO DE QUE EL JUEGO ESTE EN LA DB
-        let response = dbsearchResult
-        return res.json(response);
-      
-      }else if(apisearchResult){                       //EN EL CASO DE QUE EL JUEGO ESTE EN LA API
-        let response = apisearchResult;
-        return res.json(response.data.results);
-      } */
+    let apigameSearch = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}&search=${search}`)
+    apigameSearch = apigameSearch.data.results.map((apiex) =>{
+      return {
+        id: apiex.id,
+        name: apiex.name,
+        img: apiex.background_image,
+        rating: apiex.rating,
+        platforms: apiex.platforms,
+        genres: apiex.genres.map(e => e.name).join(),
+      }
     })
-    .catch(err => res.send(err));
+    AllSearchGames = dbgameSearch.concat(apigameSearch);
+    return res.json(AllSearchGames);
 
-  }else{                                                              
-    const dbgames = Videogame.findAll();                                             // SI NO TRAE SEARCH TRAIGO LA LISTA DE LA DB y DE LA API EXTERNA 
-    const apigames = axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}`)
-    Promise.all([dbgames, apigames])
-    .then((result) => {
-      const [mygameResult, apigameResult] = result;
-      const response = mygameResult.concat(apigameResult.data.results);
-      return res.json(response);
-    })
-    .catch(err => res.send(err));
-  }  
+
+// SI NO TRAE SEARCH TRAIGO LA LISTA DE LA DB y DE LA API EXTERNA    
+  }else{                                                                          
+   let AllGames;
+   const dbgames = await Videogame.findAll();                                                                                        
+   let allApigame = [];
+   let nextPage, games;
+    for (let i=0; i<5; i++){
+      if(i === 0){
+        games = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}`);            //Guardo en games el LOS PRIMEROS 20
+        nextPage = games.data.next;                                                        //Guardo en next la url para la segunda pagina 
+      }else{
+        games = await axios.get(nextPage);                                                 //Guardo en games los SIGUIENTES 20
+        nextPage = games.data.next;                                                        //Guardo en next las sig url    
+      }
+
+      games = games.data.results.map((api) => {                                           //Guardo solamente lo que voy a usar 
+        return {
+          id: api.id,
+          name: api.name,
+          img: api.background_image,
+          rating: api.rating,
+          platforms: api.platforms,
+          genres: api.genres.map(e => e.name).join(),
+        }  
+      }); 
+      allApigame = allApigame.concat(games);                                                //Concateno mi arreglo vacio con los juegos de la api
+    }
+  AllGames = dbgames.concat(allApigame);                                                    //Concateno los juegos de mi DB con los de la API
+  return res.json(AllGames);
+  }
 });
 
+//****************************************************************************************************************************/
+//                                    POST VIDEOGAME                                                                        //  
+//**************************************************************************************************************************/
 server.post("/videogame", (req,res) => {
   const newgame = req.body;
   return Videogame.create({
@@ -89,10 +108,13 @@ server.post("/videogame", (req,res) => {
   .catch(err => res.send(err))
 });
 
+//**************************************************************************************************************************/
+//                                    GET VIDEOGAME/:ID                                                                    //
+//**************************************************************************************************************************/
 server.get("/videogame/:id", (req, res) => {
   const {id} = req.params;
   if(id.length < 6){
-    return axios.get(`https://api.rawg.io/api/games/${id}?key=${DB_KEY}`)     // PARA INGRESAR AL ID api.rawg.io/api/games/id?key=...
+    return axios.get(`https://api.rawg.io/api/games/${id}?key=${DB_KEY}`)                 // PARA INGRESAR AL ID api.rawg.io/api/games/id?key=...
     .then(response => res.json(response.data))
     .catch(err => res.send(err));
   }else{
@@ -102,7 +124,9 @@ server.get("/videogame/:id", (req, res) => {
     .catch(err => res.send(err));  
   }
 });
-
+//****************************************************************************************************************************/
+//-------------------------------GET GENRES---------------------------------------------------------------------------------//
+//**************************************************************************************************************************/
 server.get("/genres", (req, res) => {
   axios.get(`https://api.rawg.io/api/genres?key=${DB_KEY}`)
   .then((response) => {
