@@ -22,16 +22,16 @@ function rootReducer (state = initialState, action){
             }    
 
         case ORDER_GAMES:
-            const order = action.payload;
+         /* const order = action.payload;
             order.sort(function(a,b) {
                 var x = a.name.toLowerCase();
                 var y = b.name.toLowerCase();
                 return x < y ? -1 : x > y ? 1 : 0;
             });
-            console.log(order);
+            console.log(state.);   */
             return {
                 ...state,
-                gamesLoaded: order,
+                gameOrder: action.payload,
             }  
             
         default:

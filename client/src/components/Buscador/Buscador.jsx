@@ -24,7 +24,7 @@ function handleSubmit(e){
 
 return (
     <div>
-        <div className = "Titulo"><h1>VIDEOGAMES</h1></div>
+        {/* <div className = "Titulo"><h1>VIDEOGAMES</h1></div> */}
         <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
                 <label htmlFor="title"> JUEGO</label>
@@ -32,11 +32,11 @@ return (
                    type="text"
                    id="title"
                    autoComplete="on"
-                   placeholder="Search..."
+                   placeholder="Search Game..."
                    value={state}
                    onChange={(e) => handleChange(e)}
                 />
-                <button type="submit">BUSCAR</button>
+                <button type="submit"><img src="http://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="" width="15" height="10" /></button>
             </div>
         </form>
     </div>

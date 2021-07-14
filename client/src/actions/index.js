@@ -27,9 +27,9 @@ export function SearchGames(titulo){
     }
 }
 
-export function OrderGames(){
+export function OrderGames(orden){
     return function(dispatch){
-        return axios.get(`http://localhost:3001/videogames`)
+        return axios.get(`http://localhost:3001/videogames?order=${orden}`)
         .then((response) => {
             dispatch({
                 type: ORDER_GAMES,

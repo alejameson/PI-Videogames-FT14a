@@ -40,34 +40,11 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 //----------------------GET VIDEOGAMES o VIDEOGAMES?search=nombre -------------------------------------------------//
 //*****************************************************************************************************************/
 server.get("/videogames" , async (req, res) => {                           
-  const { search } = req.query;
-// PUEDE VENIR POR QUERY ?search={name}           
-  if(search){                                                                     
-    let AllSearchGames = [];                                             
-    const dbgameSearch = await Videogame.findAll({
-      where: { name: search.toLowerCase() }, 
-    })
-    let apigameSearch = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}&search=${search}`)
-    apigameSearch = apigameSearch.data.results.map((apiex) =>{
-      return {
-        id: apiex.id,
-        name: apiex.name,
-        img: apiex.background_image,
-        rating: apiex.rating,
-        platforms: apiex.platforms,
-        genres: apiex.genres.map(e => e.name).join(),
-      }
-    })
-    AllSearchGames = dbgameSearch.concat(apigameSearch);
-    return res.json(AllSearchGames);
-
-
-// SI NO TRAE SEARCH TRAIGO LA LISTA DE LA DB y DE LA API EXTERNA    
-  }else{                                                                          
-   let AllGames;
-   const dbgames = await Videogame.findAll();                                                                                        
-   let allApigame = [];
-   let nextPage, games;
+  const { search, order } = req.query;
+  let AllGames;
+  const dbgames = await Videogame.findAll();                                                                                        
+  let allApigame = [];
+  let nextPage, games;
     for (let i=0; i<5; i++){
       if(i === 0){
         games = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}`);            //Guardo en games el LOS PRIMEROS 20
@@ -90,7 +67,48 @@ server.get("/videogames" , async (req, res) => {
       allApigame = allApigame.concat(games);                                                //Concateno mi arreglo vacio con los juegos de la api
     }
   AllGames = dbgames.concat(allApigame);                                                    //Concateno los juegos de mi DB con los de la API
-  return res.json(AllGames);
+
+// PUEDE VENIR POR QUERY ?search={name}           
+  if(search){                                                                     
+    let AllSearchGames = [];                                             
+    const dbgameSearch = await Videogame.findAll({
+      where: { name: search.toLowerCase() }, 
+    })
+    let apigameSearch = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}&search=${search}`)
+    apigameSearch = apigameSearch.data.results.map((apiex) =>{
+      return {
+        id: apiex.id,
+        name: apiex.name,
+        img: apiex.background_image,
+        rating: apiex.rating,
+        platforms: apiex.platforms,
+        genres: apiex.genres.map(e => e.name).join(),
+      }
+    })
+    AllSearchGames = dbgameSearch.concat(apigameSearch);
+    return res.json(AllSearchGames);
+
+//PUEDE VENIR EL ORDENAMIENTO POR QUERY ?order?{AZ} 
+  }else if(order === "AZ"){
+    AllGames = AllGames.sort(function(a,b) {
+      var x = a.name.toLowerCase();
+      var y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });                                                    
+      return res.json(AllGames);
+
+//PUEDE VENIR EL ORDENAMIENTO POR QUERY ?order?{ZA}
+  }else if(order === "ZA"){
+    AllGames = AllGames.sort(function(a,b) {
+      var x = a.name.toLowerCase();
+      var y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });                                                    
+      return res.json(AllGames.reverse());
+
+// SI NO TRAE SEARCH O ORDEN TRAIGO TODOS LOS JUEGOS DE MI LOCALHOST 
+  }else{                                                                                                                            //Concateno los juegos de mi DB con los de la API
+      return res.json(AllGames);
   }
 });
 

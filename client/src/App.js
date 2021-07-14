@@ -4,7 +4,6 @@ import Landing from "./components/Landing/Landing";
 import Home from "./components/Home/Home";
 import BuscadorResult from "./components/BuscadorResult/BuscadorResult"
 import NavBar from "./components/NavBar/NavBar";
-import Ordenar from "./components/Ordenar/Ordenar";
 import './App.css';
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
       <Route exact path ="/" component = {Landing} />
       <Route path ="/home" component = {Home} />
       <Route path ="/search" component = {BuscadorResult} />
-      <Route path = "/order" component = {Ordenar} />
     </React.Fragment>
   );
 }
