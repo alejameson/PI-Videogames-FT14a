@@ -1,0 +1,115 @@
+.detail{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 175px;
+    top: 100px;
+    margin: 50px;
+    width: 1400px;
+    color: white;
+    font-family: monospace afim10;
+    /* background: url("https://i.pinimg.com/originals/df/24/34/df243411e8f0257618381d5bebf6db38.jpg"); */
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.imgdetail{
+    position: relative;
+    top: 00px;
+    left: 30px;
+    background: rgba( 0, 0, 0, 0.80 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.contdet{
+    margin: 20px;
+}
+
+.colorlaunch{
+    color: rgb(255, 255, 255);
+}
+
+.colorat{
+    color: rgb(255, 185, 55);
+}
+
+.colorplat{
+    color: rgba(255, 255, 255, 0.589);
+}
+
+.colorgen{
+    color: rgba(255, 255, 255, 0.589);
+}
+
+.game{
+    position: relative;
+    top: -80px;
+    left: -5px;
+    width: 500px;
+    margin: 90px;
+}
+
+.loadingdetail{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 300px;
+}
+
+.detaildesc{
+    width: 600px;
+    color: black;
+    /* background: rgba( 0, 0, 0, 0.80 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+}
+
+.descript{
+    width: 570px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background: rgba(34, 11, 11, 0.794);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.btndetail{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 60px;
+    left: 50px;
+}
+
+.btnhome{
+    width: 350px;
+    height: 50px;
+    color: white;
+    background: rgba( 0, 0, 0, 0.80 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btnhome:hover{
+    color: black;
+    background: rgba(236, 232, 232, 0.65);
+}

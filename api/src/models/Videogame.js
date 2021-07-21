@@ -19,14 +19,16 @@ module.exports = (sequelize) => {
     },
     launchdate: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     rating: {
       type: DataTypes.INTEGER,
     },
     plataforms: {
-      type: DataTypes.ARRAY(Sequelize.STRING),
+      type: DataTypes.STRING,
       allowNull: false,
-    } 
+    },
+    img: {
+      type: DataTypes.STRING,
+    },
   });
 };

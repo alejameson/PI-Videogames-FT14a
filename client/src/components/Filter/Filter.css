@@ -1,0 +1,12 @@
+
+.filtercont{
+  position: relative;
+  left: 90px;
+  bottom: -20px;
+}
+
+.palabrita{
+    display: flex;
+    color: white;
+    justify-content: space-evenly;
+}

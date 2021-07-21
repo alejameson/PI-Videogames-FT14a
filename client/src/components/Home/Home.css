@@ -1,4 +1,13 @@
 
+.home{
+    background-image: url('https://www.teahub.io/photos/full/11-111158_adventure-time-wallpaper-gif.gif');
+    background-repeat: no-repeat ;
+    background-attachment: fixed;  
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;    
+    overflow-y: hidden;      
+    overflow-x: hidden; 
+}
+
 .lista {
     display: flex;    
     flex-flow: row wrap ; 
@@ -6,48 +15,276 @@
     color: white;
 }
 
-.ordenamiento{
+.opciones{
+    position: relative;
+    top: 10px; 
+    margin: -15px;
+}
+
+
+.contord{
     display: flex;
     justify-content: center;
+    align-self: center;
+    margin: 30px;
+    /* position: relative;
+    top: -40px; */
+}
+
+.ordenamiento{
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
-    margin: 15px;
+    margin: -10px;
+    width: 700px;
+    height: 150px;
+    background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.ordertit{
+    position: relative;
+    top: -45px;
+    left: 290px;
+    color: white;
+}
+
+.orderbtn{
+    display: flex;
+    justify-content: space-between;
 }
 
 .btn1{
     width: 100px;
     height: 35px;
-    color: white;
-    background: rgba( 157, 1, 1, 0.60 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 8.5px );
-    -webkit-backdrop-filter: blur( 8.5px );
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    right: 50px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
     border-radius: 5px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
     cursor: pointer;
+    transition: 0.35s;
+}
+
+/* rgba(155, 168, 38, 0.671); */
+
+.btn1:hover{
+    color: white;
+    background: rgba(253, 192, 25, 0.753);
+    border: rgba(253, 192, 25, 0.753);
 }
 
 .btn2{
     width: 100px;
     height: 35px;
-    color: white;
-    background: rgba( 157, 1, 1, 0.60 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 8.5px );
-    -webkit-backdrop-filter: blur( 8.5px );
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    right: 50px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
     border-radius: 5px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
     cursor: pointer;
+    transition: 0.35s;
+}
+
+.btn2:hover{
+    color: white;
+    background: rgba(253, 192, 25, 0.753);
+    border: rgba(253, 192, 25, 0.753);
 }
 
 .btn3{
     width: 100px;
     height: 35px;
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    right: 50px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.btn3:hover{
     color: white;
-    background: rgba( 157, 1, 1, 0.60 );
+    background: rgba(253, 192, 25, 0.753);
+    border: rgba(253, 192, 25, 0.753);
+}
+
+.btn4{
+    width: 100px;
+    height: 35px;
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    right: 50px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.btn4:hover{
+    color: white;
+    background: rgba(253, 192, 25, 0.753);
+    border: rgba(253, 192, 25, 0.753);
+}
+
+.btn5{
+    width: 100px;
+    height: 35px;
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    right: 50px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.btn5:hover{
+    color: white;
+    background: rgba(253, 192, 25, 0.753);
+    border: rgba(253, 192, 25, 0.753);
+}
+
+.filtrado{
+    position: relative;
+    left: 90px;
+    top: 140px;
+    width: 300px;
+    height: 90px;
+    background: rgba( 0, 0, 0, 0.60 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 8.5px );
     -webkit-backdrop-filter: blur( 8.5px );
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+  
+  .palabrita{
+      display: flex;
+      justify-content: center;
+      color: white;
+      margin: 10px;
+  }
+
+  .filter1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .creadores{
+    position: relative;
+    left: 1500px;
+    bottom: 145px;
+    width: 300px;
+    height: 90px;
+    background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+
+  .palabrita2{
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin: 10px;
+  }
+
+  .filter2{
+      display: flex;
+      justify-content: center;
+  }
+
+  .loadinghome{
+      display: flex;
+      justify-content: center;
+  }
+
+  .filtergen{
+    width: 150px;
+    height: 35px;
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    background-color: Transparent !important; 
+    font-weight: bold !important;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
+    border-radius: 5px;
     cursor: pointer;
-}
+  }
+
+  .optall{
+    background: rgba(60, 65, 15, 0.952);
+  }
+
+  .optgen{
+      background: rgba(60, 65, 15, 0.952);
+  }
+
+  .filtercrea{
+    width: 150px;
+    height: 35px;
+    color: rgba(253, 192, 25, 0.753);
+    position: relative;
+    background-color: Transparent !important; 
+    font-weight: bold !important;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px solid rgba(253, 192, 25, 0.753);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .crea-all{
+    background: rgba(60, 65, 15, 0.952);
+  }
+
+  .crea-my{
+    background: rgba(60, 65, 15, 0.952);
+  }
+
+  .crea-api{
+    background: rgba(60, 65, 15, 0.952);
+  }
+
+  /* .loadingtit{
+    display: flex;
+    justify-content: center;
+  } */
+  

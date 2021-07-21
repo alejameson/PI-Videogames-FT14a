@@ -1,24 +1,31 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Buscador from '../Buscador/Buscador';
-import Joystick2 from "../../Joystick2.png";
+import Ubisoft from "../../Ubisoftlogo.png";
 import "./NavBar.css";
 
 export default function NavBar() {
     return (
         <header className="navbar">
             <div>
-               <NavLink exact to ="/"> <img id="logoHenry" src={Joystick2} width="80" height="50" className="d-inline-block align-top" alt="" /> </NavLink>
+               <Link exact to ="/"> <img src="https://www.blastoff2fun.com/wp-content/uploads/2015/03/arcade.png" width="190" height="120" className="d-inline-block align-top" alt="" /> </Link>
             </div>
-            <Buscador/>
             <nav>
-                <ul className="list">
-                    <li className="list-item">
-                        <NavLink exact to="/home" >Home</NavLink>
-                        <NavLink to="/favs" >Favoritas</NavLink>
-                    </li>
-                </ul>
+                <div className="list">
+                    <div className="list-item">
+                        <Link exact to="/home" >🏚️ Home</Link>
+                    </div>
+                </div>
             </nav>
+            <nav>
+                <div className="list-create">
+                    <div className="list-item-create">
+                        <Link exact to="/create" >✚ Create</Link>
+                    </div>
+                </div>
+            </nav>
+            <Buscador/>
         </header>
     )
 }
+

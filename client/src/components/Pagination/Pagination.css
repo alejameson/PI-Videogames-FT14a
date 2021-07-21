@@ -3,9 +3,12 @@
     flex-flow: row wrap ; 
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: -45px;
 }
 
-.btn{
+.btnum{
+    margin: 20px;
     cursor: pointer;
     width: 50px;
     height: 40px;
@@ -13,4 +16,16 @@
     color: white;
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );  
+    transition: 0.5s;
+}
+
+.btnum:hover{
+    background-color: rgba(114, 91, 28, 0.829);
+}
+
+
+
+ .btnum:focus, .btnum:active{
+    background-color:rgba(253, 192, 25, 0.753);
+    color: #fbfcfc;
 }

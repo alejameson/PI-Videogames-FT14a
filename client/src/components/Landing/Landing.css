@@ -1,24 +1,93 @@
-.TituloLand {
+.landingpage{
+    overflow-y: hidden !important;      
+    overflow-x: hidden; 
+}
+
+.titlearcade {
+    position: relative;
+    transform: rotate(45deg);
+    top: -60px;
+    left: 730px;
+}
+
+.appinfo{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    color: white;
+    position: relative;
+    top: 100px;
+    transform: rotate(-45deg);
+    left: -1400px; 
+    width: 3000px;  
+    height: 1000px;
+    background: rgba(0, 0, 0, 0.315);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    /* border-radius: 10px; */
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-.Joystick {
+.spanland{
     display: flex;
-    position: absolute;
-    top: 50%;
-    margin-top: -80px;
-    left: 50%;
-    margin-left: -70px;
+    justify-content: center;
+    text-align: center;
+    position: relative; 
+    transform: rotate(45deg);
+    top: 90px;
+    left: 100px;
+    width: 500px;
+    color: rgba(255, 255, 255, 0.76);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-/* .btnstart{
+.startbtn{
+    position: relative;
+    transform: rotate(45deg);
+    top: 230px;
+    left: -370px;
+    width: 140px;
+    height: 60px;
+    font-size: 23px;
+    color: #0c0f03da;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     cursor: pointer;
-    width: 100px;
-    height: 45px;
-    background-color: black;
-    color: white;
-} */
+    background-color:#c0fb1eda;;
+    box-shadow: 0 8px 32px 0 rgba(40, 135, 31, 0.37);
+    backdrop-filter: blur( 17.0px );
+    -webkit-backdrop-filter: blur( 17.0px );
+    border-radius: 5px;
+    border: 1px ;
+    transition: 0.5s;
+}
+
+.startbtn:hover {
+	background:linear-gradient(to bottom, #fa9510 10%, #c0fb1eda 100%);
+	background-color:#fa9510;
+}
+
+.landplat{
+    display: flex;
+    flex-flow: row;
+    padding-left: 15px;
+    position: relative;
+    top: -150px;
+    left: 600px;
+}
+
+.xbox{
+    position: relative;
+    top: 17px;
+}
+
+.playstation{
+    position: relative;
+    right: -30px;
+    top: 25px;
+}
+
+.pcgamer{
+    position: relative;
+    right: -80px;
+    top: 20px;
+}

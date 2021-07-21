@@ -8,7 +8,9 @@ const  DB_KEY  = "6fc12debd6e24ec99e67faba047213f4";
 const { v4: uuidv4 } = require('uuid');
 
 const { Videogame, Genre } = require('./db.js');
-/* const Genre = require('./models/Genre.js'); */
+const db = require('./db.js');
+const e = require('express');
+
 
 const server = express();
 
@@ -40,9 +42,13 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 //----------------------GET VIDEOGAMES o VIDEOGAMES?search=nombre -------------------------------------------------//
 //*****************************************************************************************************************/
 server.get("/videogames" , async (req, res) => {                           
-  const { search, order } = req.query;
+  const { search } = req.query;
   let AllGames;
-  const dbgames = await Videogame.findAll();                                                                                        
+  const dbgames = await Videogame.findAll({ include: [
+    { model: Genre, attributes: ["name"], through: { attributes: [] } }
+  ]
+});
+                                                                                     
   let allApigame = [];
   let nextPage, games;
     for (let i=0; i<5; i++){
@@ -54,14 +60,16 @@ server.get("/videogames" , async (req, res) => {
         nextPage = games.data.next;                                                        //Guardo en next las sig url    
       }
 
-      games = games.data.results.map((api) => {                                           //Guardo solamente lo que voy a usar 
+      games = games.data.results.map((api) => {                                      //Guardo solamente lo que voy a usar 
         return {
           id: api.id,
           name: api.name,
           img: api.background_image,
           rating: api.rating,
           platforms: api.platforms,
-          genres: api.genres.map(e => e.name).join(),
+          genres: api.genres.map(genr => {
+            return {name: genr.name}
+          }),
         }  
       }); 
       allApigame = allApigame.concat(games);                                                //Concateno mi arreglo vacio con los juegos de la api
@@ -73,6 +81,9 @@ server.get("/videogames" , async (req, res) => {
     let AllSearchGames = [];                                             
     const dbgameSearch = await Videogame.findAll({
       where: { name: search.toLowerCase() }, 
+      include: [
+        { model: Genre, attributes: ["name"], through: { attributes: [] } }
+      ]
     })
     let apigameSearch = await axios.get(`https://api.rawg.io/api/games?key=${DB_KEY}&search=${search}`)
     apigameSearch = apigameSearch.data.results.map((apiex) =>{
@@ -82,29 +93,14 @@ server.get("/videogames" , async (req, res) => {
         img: apiex.background_image,
         rating: apiex.rating,
         platforms: apiex.platforms,
-        genres: apiex.genres.map(e => e.name).join(),
+        genres: apiex.genres.map(e => {
+          return {name: e.name}
+        }),
       }
     })
     AllSearchGames = dbgameSearch.concat(apigameSearch);
     return res.json(AllSearchGames);
 
-//PUEDE VENIR EL ORDENAMIENTO POR QUERY ?order?{AZ} 
-  }else if(order === "AZ"){
-    AllGames = AllGames.sort(function(a,b) {
-      var x = a.name.toLowerCase();
-      var y = b.name.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });                                                    
-      return res.json(AllGames);
-
-//PUEDE VENIR EL ORDENAMIENTO POR QUERY ?order?{ZA}
-  }else if(order === "ZA"){
-    AllGames = AllGames.sort(function(a,b) {
-      var x = a.name.toLowerCase();
-      var y = b.name.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });                                                    
-      return res.json(AllGames.reverse());
 
 // SI NO TRAE SEARCH O ORDEN TRAIGO TODOS LOS JUEGOS DE MI LOCALHOST 
   }else{                                                                                                                            //Concateno los juegos de mi DB con los de la API
@@ -115,31 +111,68 @@ server.get("/videogames" , async (req, res) => {
 //****************************************************************************************************************************/
 //                                    POST VIDEOGAME                                                                        //  
 //**************************************************************************************************************************/
-server.post("/videogame", (req,res) => {
-  const newgame = req.body;
-  return Videogame.create({
-    ...newgame,
-    name: newgame.name.toLowerCase(),
-    id: uuidv4(),
-  })
-  .then(response => res.json(response))
-  .catch(err => res.send(err))
+server.post("/videogame", async(req,res,next) => {
+  try{
+    const newgame = req.body;
+    console.log("ESTO ES EL NEWGAME: ", newgame);
+    const genreid = newgame.genres;
+    const idgame = uuidv4();
+    const createGame = await Videogame.create({
+      ...newgame,
+      name: newgame.name.toLowerCase(),
+      id: idgame,
+    });
+    for(let i=0; i<genreid.length; i++){
+      Videogame.findByPk(idgame)
+      .then((game) => {
+        return game.addGenre(genreid[i]);
+      })
+    }
+    const findgame = await Videogame.findByPk(idgame);
+    return res.json(findgame);
+  }catch(err){
+    next(err);
+  }
 });
 
 //**************************************************************************************************************************/
 //                                    GET VIDEOGAME/:ID                                                                    //
 //**************************************************************************************************************************/
-server.get("/videogame/:id", (req, res) => {
+server.get("/videogame/:id", async (req, res, next) => {
   const {id} = req.params;
+  console.log(id);
   if(id.length < 6){
-    return axios.get(`https://api.rawg.io/api/games/${id}?key=${DB_KEY}`)                 // PARA INGRESAR AL ID api.rawg.io/api/games/id?key=...
-    .then(response => res.json(response.data))
-    .catch(err => res.send(err));
+    try{
+      const apigame = await axios.get(`https://api.rawg.io/api/games/${id}?key=${DB_KEY}`);     // PARA INGRESAR AL ID api.rawg.io/api/games/id?key=...
+      console.log(apigame.data);               
+      const game = {
+        name: apigame.data.name,
+        description: apigame.data.description_raw,
+        launchdate: apigame.data.released,
+        rating: apigame.data.rating,
+        plataforms: apigame.data.platforms.map((p) => p.platform.name).join(),
+        img: apigame.data.background_image,
+        genres: apigame.data.genres.map(e => {
+          return {name: e.name}
+        }),
+      }
+      return res.json(game);
+    }catch(e){  
+      next(e);
+    }
   }else{
-    Videogame.findByPk(id)
-    .then((result) => { 
-      return res.json(result) })
-    .catch(err => res.send(err));  
+    try{
+      const dbgame = await Videogame.findAll({
+        where: { id : id }, 
+        include: [
+          { model: Genre, attributes: ["name"], through: { attributes: [] } }
+        ]
+      })
+      console.log(dbgame);
+      return res.json(dbgame[0]);
+    }catch(e){
+      next(e);
+    } 
   }
 });
 //****************************************************************************************************************************/
@@ -149,15 +182,23 @@ server.get("/genres", (req, res) => {
   axios.get(`https://api.rawg.io/api/genres?key=${DB_KEY}`)
   .then((response) => {
     const generos = response.data.results;
-    generos.forEach(e => {
+    generos.forEach(genre => {
       Genre.create({
-        name: e.name,
-        id: e.id,
+        name: genre.name,
       })
     })
-    return res.json(generos);
+    Genre.findAll()
+    .then(response => {
+      return res.json(response);
+    })
   })
+  .catch(err => res.send(err));
 });
+
+server.get("/genres/db", async(req, res) => {
+const dbgenres = await Genre.findAll();
+return res.json(dbgenres);
+})
 
 
 module.exports = server;

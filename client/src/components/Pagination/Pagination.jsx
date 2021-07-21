@@ -13,7 +13,7 @@ const Pagination = ({ gamesPerPage, totalGames, paginate }) => {
             <div className = "botonespag">
                 {pageNumbers.map(number => (
                     <div key={number}>
-                        <button className="btn" onClick = {() => paginate(number)}>{number}</button>
+                        <button className="btnum" onClick = {() => paginate(number)}>{number}</button>
                     </div>
                 ))}
             </div>

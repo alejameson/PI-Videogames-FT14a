@@ -1,0 +1,214 @@
+.Creacion{
+  overflow-y: hidden;      
+}
+
+.pendex{
+  position: relative;
+  right: 540px;
+  top: 100px;
+}
+
+.titulo{
+  display: flex;
+  position: relative;
+  top: -380px;
+  left: 80px;
+  color: white;
+}
+
+.createtitle{
+    position: relative;
+    right: -100px;
+    top: -530px;
+    color: rgba(255, 255, 255, 0.548);
+    list-style: none;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    height: 35%;
+    text-align: center;
+    font: condensed 120% sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: 5px;
+    text-shadow: -2px 0 0 #fdff2a,
+        -4px 0 0 #df4a42,
+        2px 0 0 #91fcfe,
+        4px 0 0 #4405fc;
+}
+
+.cuadro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1000px;
+  /* position: relative;
+  top: 150px;
+  width: 500px; */
+  background: rgba(34, 11, 11, 0.794);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  
+}
+
+.form{
+  display : flex; 
+  flex-direction: column ;
+  position: relative;
+  top: 300px;
+  left: 430px;
+  width: 450px; 
+  color: white;
+
+}
+
+.name{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputname{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.description{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputdesc{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.launchdate{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputlaunch{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.rating{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputrating{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 )
+}
+
+.platfotms{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputplat{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 )
+}
+
+.img{
+  position: relative;
+  left: -10px;
+  margin: 10px;
+  width: 100px;
+}
+
+.inputimg{
+  color: white;
+  width: 440px;
+  height: 25px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 )
+}
+
+.genres{
+  display : flex; 
+  flex-flow: row wrap ; 
+}
+
+.inputgen{
+  margin: 10px;
+  /* background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ) */
+}
+
+.enviar{
+  color: white;
+  background-color: rgba( 0, 0, 0, 0.60 );
+  cursor: pointer;
+  height: 50px;
+  background: rgba( 0, 0, 0, 0.60 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    transition: 0.4s;
+}
+
+.enviar:hover{
+  background: rgba(143, 216, 8, 0.856);
+  color: black;
+}

@@ -1,13 +1,26 @@
-.Titulo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+.buscando{
+    width: 200%;
+    position: relative;
+    right: 50px;
 }
 
-.listasearch {
-    display: flex;    
-    flex-flow: row wrap ; 
-    justify-content: flex-start;
+.btnsearch{
+    background: rgba( 255, 249, 249, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
     color: white;
+    height: 34px;
+    width: 50px;
+    position: relative;
+    top: 1px;
+}
+
+.inputsearch{
+    background: rgba( 127, 122, 122, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 12.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    color: white;
+    width: 250px;
+    height: 30px;
 }

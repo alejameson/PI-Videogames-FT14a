@@ -19,9 +19,18 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 return (
     <div>
-        <div><h1>SEARCH GAMES</h1></div>
-        <Pagination gamesPerPage={gamesPerPage} totalGames={search.length} paginate={paginate}/>
-        <Games games={currentGames} loading={false}/>
+        {search.length ?
+           <div> 
+            <div><h1>SEARCH GAMES</h1></div>
+            <Pagination gamesPerPage={gamesPerPage} totalGames={search.length} paginate={paginate}/>
+            <Games games={currentGames} loading={false}/>
+           </div> 
+            : (
+                <div>
+                    <img src="https://images.hive.blog/p/62PdCouTvNPD4Ewnt81FpyJK4VTFfLrE49bSu5TkQabrMWnhCxHuC1GHZmpgn74kEmNfG7sXK55siP7adzGc45rdGCCY9a5oRqFzUerSqUe3V33?format=match&mode=fit" alt="" />
+                </div>
+            )
+        }    
     </div>
 )
 

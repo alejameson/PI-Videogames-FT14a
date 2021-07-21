@@ -2,12 +2,65 @@
   display : flex; 
   flex-flow: row wrap ; 
   justify-content: space-evenly;
+  position: relative;
+  top: -60px;
 }
 .container{
+  margin: 45px;
   background: rgba( 0, 0, 0, 0.80 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.cardinfo{
+  margin: 15px;
+}
+
+.cardtit{
+  margin: -5px;
+  position: relative;
+  left: 11px;
+}
+
+.cardgen{
+  margin: 10px;
+  color: rgba(255, 255, 255, 0.589);
+}
+
+.cardrat{
+  margin: 5px;
+  color: rgb(255, 185, 55);
+}
+
+.learn{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.btnlearn{
+  color: white;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;  
+  border: 1px solid rgba( 255, 255, 255, 0.18 ); 
+  width: 150px;
+  height: 35px;
+  transition: 1s;
+}
+
+.btnlearn:hover{
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.335);
+}
+
+.btnlearn:hover::after{
+  content: " 🎮";
 }
