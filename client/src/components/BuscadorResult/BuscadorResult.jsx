@@ -19,7 +19,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 return (
     <div>
-        {search.length ?
+        {search != "vacio" ?
            <div> 
             <div><h1>SEARCH GAMES</h1></div>
             <Pagination gamesPerPage={gamesPerPage} totalGames={search.length} paginate={paginate}/>

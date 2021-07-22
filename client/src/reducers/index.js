@@ -28,107 +28,62 @@ function rootReducer (state = initialState, action){
             }
 
         case SEARCH_GAMES:
+            if(!action.payload){
+                action.payload = "vacio";
+            }
             return {
                 ...state,
                 gameSearch: action.payload,
             }    
 
         case ORDER_GAMES:
-        if(state.gamesCreator.length < 1){    
-            if(action.orden === "ALEATORY"){
-                return {
-                    ...state,
-                    gamesMess: state.gamesMess2,
-                }
-            }else if(action.orden === "AZ"){   
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order,
-                    }  
-            }else if(action.orden === "ZA"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order.reverse(),
-                    }  
-            }else if(action.orden === "MAYOR"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.rating;
-                    var y = b.rating;
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order.reverse(),
-                    }  
-            }else if(action.orden === "MENOR"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.rating;
-                    var y = b.rating;
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order,
-                    }  
-            }
+        let optioncreat = [];
+        if(state.gamesCreator.length < 1){
+            optioncreat = state.gamesMess;
         }else{
-            if(action.orden === "ALEATORY"){
+            optioncreat = state.gamesCreator;
+        }
+        if(action.orden === "AZ"){   
+            const order = optioncreat.sort(function(a,b) {
+                var x = a.name.toLowerCase();
+                var y = b.name.toLowerCase();
+                return x < y ? -1 : x > y ? 1 : 0;
+                });
                 return {
                     ...state,
-                    gamesMess: state.gamesMess2,
-                }
-            }else if(action.orden === "AZ"){   
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order,
-                    }  
-            }else if(action.orden === "ZA"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order.reverse(),
-                    }  
-            }else if(action.orden === "MAYOR"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.rating;
-                    var y = b.rating;
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order.reverse(),
-                    }  
-            }else if(action.orden === "MENOR"){
-                const order = state.gamesFilter.sort(function(a,b) {
-                    var x = a.rating;
-                    var y = b.rating;
-                    return x < y ? -1 : x > y ? 1 : 0;
-                    });
-                    return {
-                        ...state,
-                        gamesMess: order,
-                    }  
-            }
-        }    
+                    gameOrder: order,
+                }  
+        }else if(action.orden === "ZA"){
+            const order = optioncreat.sort(function(a,b) {
+                var x = a.name.toLowerCase();
+                var y = b.name.toLowerCase();
+                return x < y ? -1 : x > y ? 1 : 0;
+                });
+                return {
+                    ...state,
+                    gameOrder: order.reverse(),
+                }  
+        }else if(action.orden === "MAYOR"){
+            const order = optioncreat.sort(function(a,b) {
+                var x = a.rating;
+                var y = b.rating;
+                return x < y ? -1 : x > y ? 1 : 0;
+                });
+                return {
+                    ...state,
+                    gameOrder: order.reverse(),
+                }  
+        }else if(action.orden === "MENOR"){
+            const order = optioncreat.sort(function(a,b) {
+                var x = a.rating;
+                var y = b.rating;
+                return x < y ? -1 : x > y ? 1 : 0;
+                });
+                return {
+                    ...state,
+                    gameOrder: order,
+                }  
+        }
           
         case GET_GENRES:
             return {
@@ -137,66 +92,50 @@ function rootReducer (state = initialState, action){
             }  
         
         case FILTER_GAMES: 
-         if(state.gamesCreator.length > 0){
+          let optionfil = [];
+          if(state.gamesCreator.length < 1){
+              optionfil = state.gamesMess;
+          }else{
+              optionfil = state.gamesCreator;
+          }
             if(action.filter === "All"){
                 return {
                     ...state,
-                    gamesFilter: state.gamesCreator,
+                    gamesFilter: optionfil,
                 }
             }else {
                 const filname = action.filter;
                 console.log(filname);
                 const filtrado = [];
-                state.gamesCreator.map((game) => {
+                optionfil.map((game) => {
                     game.genres.map(g => {
                         if(g.name === filname){
                             filtrado.push(game);
                         }
                     })
                 });
+                /* console.log(filtrado); */
                 return {
                     ...state,
                     gamesFilter: filtrado,
                 }
             }    
-         }else{
-            if(action.filter === "All"){
-                return {
-                    ...state,
-                    gamesFilter: state.gamesMess2,
-                }
-            }else {
-                const filname = action.filter;
-                console.log(filname);
-                const filtrado = [];
-                state.gamesMess.map((game) => {
-                    game.genres.map(g => {
-                        if(g.name === filname){
-                            filtrado.push(game);
-                        }
-                    })
-                });
-                return {
-                    ...state,
-                    gamesFilter: filtrado,
-                }
-            }    
-         }   
+            
         case CREATOR_GAMES:
-            if(action.creator === "all"){
+            if(action.creator === "All"){
                 console.log(state.gamesLoaded)
                 return {
                     ...state,
-                    gamesCreator: state.gamesMess2,
+                    gamesCreator: state.gamesMess,
                 }
             }else if(action.creator === "mygames"){
-                const mygames = state.gamesMess2.filter((game) => game.id.length > 1)
+                const mygames = state.gamesMess.filter((game) => game.id.length > 1)
                 return {
                     ...state,
                     gamesCreator: mygames,
                 }
             }else if(action.creator === "apigames"){
-                const apigames = state.gamesMess2.filter((game) => typeof game.id === "number")
+                const apigames = state.gamesMess.filter((game) => typeof game.id === "number")
                 return {
                     ...state,
                     gamesCreator: apigames,
