@@ -34,48 +34,101 @@ function rootReducer (state = initialState, action){
             }    
 
         case ORDER_GAMES:
-
-        if(action.orden === "AZ"){   
-            const order = state.gamesMess.sort(function(a,b) {
-                var x = a.name.toLowerCase();
-                var y = b.name.toLowerCase();
-                return x < y ? -1 : x > y ? 1 : 0;
-                });
+        if(state.gamesCreator.length < 1){    
+            if(action.orden === "ALEATORY"){
                 return {
                     ...state,
-                    gameOrder: order,
-                }  
-        }else if(action.orden === "ZA"){
-            const order = state.gamesMess.sort(function(a,b) {
-                var x = a.name.toLowerCase();
-                var y = b.name.toLowerCase();
-                return x < y ? -1 : x > y ? 1 : 0;
-                });
+                    gamesMess: state.gamesMess2,
+                }
+            }else if(action.orden === "AZ"){   
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order,
+                    }  
+            }else if(action.orden === "ZA"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order.reverse(),
+                    }  
+            }else if(action.orden === "MAYOR"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.rating;
+                    var y = b.rating;
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order.reverse(),
+                    }  
+            }else if(action.orden === "MENOR"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.rating;
+                    var y = b.rating;
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order,
+                    }  
+            }
+        }else{
+            if(action.orden === "ALEATORY"){
                 return {
                     ...state,
-                    gameOrder: order.reverse(),
-                }  
-        }else if(action.orden === "MAYOR"){
-            const order = state.gamesMess.sort(function(a,b) {
-                var x = a.rating;
-                var y = b.rating;
-                return x < y ? -1 : x > y ? 1 : 0;
-                });
-                return {
-                    ...state,
-                    gameOrder: order.reverse(),
-                }  
-        }else if(action.orden === "MENOR"){
-            const order = state.gamesMess.sort(function(a,b) {
-                var x = a.rating;
-                var y = b.rating;
-                return x < y ? -1 : x > y ? 1 : 0;
-                });
-                return {
-                    ...state,
-                    gameOrder: order,
-                }  
-        }
+                    gamesMess: state.gamesMess2,
+                }
+            }else if(action.orden === "AZ"){   
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order,
+                    }  
+            }else if(action.orden === "ZA"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order.reverse(),
+                    }  
+            }else if(action.orden === "MAYOR"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.rating;
+                    var y = b.rating;
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order.reverse(),
+                    }  
+            }else if(action.orden === "MENOR"){
+                const order = state.gamesFilter.sort(function(a,b) {
+                    var x = a.rating;
+                    var y = b.rating;
+                    return x < y ? -1 : x > y ? 1 : 0;
+                    });
+                    return {
+                        ...state,
+                        gamesMess: order,
+                    }  
+            }
+        }    
           
         case GET_GENRES:
             return {
@@ -84,10 +137,33 @@ function rootReducer (state = initialState, action){
             }  
         
         case FILTER_GAMES: 
+         if(state.gamesCreator.length > 0){
             if(action.filter === "All"){
                 return {
                     ...state,
-                    gamesFilter: state.gamesMess,
+                    gamesFilter: state.gamesCreator,
+                }
+            }else {
+                const filname = action.filter;
+                console.log(filname);
+                const filtrado = [];
+                state.gamesCreator.map((game) => {
+                    game.genres.map(g => {
+                        if(g.name === filname){
+                            filtrado.push(game);
+                        }
+                    })
+                });
+                return {
+                    ...state,
+                    gamesFilter: filtrado,
+                }
+            }    
+         }else{
+            if(action.filter === "All"){
+                return {
+                    ...state,
+                    gamesFilter: state.gamesMess2,
                 }
             }else {
                 const filname = action.filter;
@@ -100,28 +176,27 @@ function rootReducer (state = initialState, action){
                         }
                     })
                 });
-                /* console.log(filtrado); */
                 return {
                     ...state,
                     gamesFilter: filtrado,
                 }
             }    
-            
+         }   
         case CREATOR_GAMES:
-            if(action.creator === "All"){
+            if(action.creator === "all"){
                 console.log(state.gamesLoaded)
                 return {
                     ...state,
-                    gamesCreator: state.gamesMess,
+                    gamesCreator: state.gamesMess2,
                 }
             }else if(action.creator === "mygames"){
-                const mygames = state.gamesMess.filter((game) => game.id.length > 1)
+                const mygames = state.gamesMess2.filter((game) => game.id.length > 1)
                 return {
                     ...state,
                     gamesCreator: mygames,
                 }
             }else if(action.creator === "apigames"){
-                const apigames = state.gamesMess.filter((game) => typeof game.id === "number")
+                const apigames = state.gamesMess2.filter((game) => typeof game.id === "number")
                 return {
                     ...state,
                     gamesCreator: apigames,

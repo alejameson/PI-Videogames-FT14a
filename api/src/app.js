@@ -104,7 +104,7 @@ server.get("/videogames" , async (req, res) => {
 
 // SI NO TRAE SEARCH O ORDEN TRAIGO TODOS LOS JUEGOS DE MI LOCALHOST 
   }else{                                                                                                                            //Concateno los juegos de mi DB con los de la API
-      return res.json(AllGames);
+      return res.status(200).json(AllGames);
   }
 });
 

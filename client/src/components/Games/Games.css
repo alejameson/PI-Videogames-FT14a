@@ -55,8 +55,9 @@
 }
 
 .btnlearn:hover{
-  width: 200px;
-  height: 50px;
+  /* width: 200px;
+  height: 50px; */
+  transform: scale(1.2);
   font-size: 16px;
   background: rgba(0, 0, 0, 0.335);
 }

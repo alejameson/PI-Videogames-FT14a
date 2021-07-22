@@ -15,13 +15,13 @@ const [gamesPerPage] = useState(15);
 const dispatch = useDispatch(); 
 
 const games = useSelector((state) => state.gamesLoaded); 
-const order = useSelector((state) => state.gameOrder);
+const order = useSelector((state) => state.gamesMess);
 const allgenres = useSelector((state) => state.genres);
 const filter = useSelector((state) => state.gamesFilter);
 const creator = useSelector((state) => state.gamesCreator);
 
 
-
+const Aleatory = "ALEATORY";
 const ordenAZ = "AZ";
 const ordenZA = "ZA";
 const ratingMayor = "MAYOR";
@@ -60,7 +60,7 @@ return (
               <label htmlFor='filter' className="palabrita">Filter By Genre</label>
               <div className="filter1"> 
                 <select name='filter' onChange={handleOnFilterChange}  className="filtergen">
-                    <option value="All" className="optall">All Games</option>
+                    <option value="All" className="optall">All Genres</option>
                     {allgenres.map((genre) =>(
                         <option value={genre.name} className="optgen">{genre.name}</option>
                     ))}
@@ -70,7 +70,7 @@ return (
          <div className="contord">
             <div className="ordenamiento">
                 <div className="ordertit"><h3>Order By...</h3></div>
-                <button className="btn1" onClick={() => setActive("Aleatory")}>ALEATORY</button>
+                <button className="btn1" onClick={() => {dispatch(OrderGames(Aleatory)); setActive("Aleatory")}}>ALEATORY</button>
                 <button className="btn2" onClick={() => {dispatch(OrderGames(ordenAZ)); setActive("OrderAZ")}}>A-Z 🡳</button>
                 <button className="btn3" onClick={() => {dispatch(OrderGames(ordenZA)); setActive("OrderZA")}}>Z-A 🡱</button>
                 <button className="btn4" onClick={() => {dispatch(OrderGames(ratingMayor)); setActive("RatingMayor")}}>Higher Rating ⭐</button>
@@ -81,7 +81,7 @@ return (
               <label htmlFor="filcreator" className="palabrita2">Filter By Creator</label>
               <div className="filter2">
                 <select name="filcreator" onChange={handleOnCreatorChange} className="filtercrea">
-                  <option value="All" className="crea-all">All Games</option>
+                  <option value="all" className="crea-all">All Games</option>
                   <option value="mygames" className="crea-my">My Games</option>
                   <option value="apigames" className="crea-api">Api Games</option>
                 </select>
