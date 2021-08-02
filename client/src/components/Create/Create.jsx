@@ -119,14 +119,11 @@ export default function Create () {
                         </div> 
                         <div className="platforms">    
                             <label>Platforms</label>
-                            <input 
-                                className="inputplat"
-                                type="text" 
-                                placeholder="Platforms..." 
-                                name="plataforms"
-                                value={state.plataforms} 
-                                onChange={handleChange}
-                            />
+                            <select name="plataforms" onChange={handleChange}>
+                                <option value="pc">PC</option>
+                                <option value="xbox">XBOX</option>
+                                <option value="ps5">ps5</option>
+                            </select>
                         </div>  
                         <div className="img">  
                             <label>Image url</label>

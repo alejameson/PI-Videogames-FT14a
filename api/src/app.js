@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const { default: axios } = require('axios');
-const  DB_KEY  = "6fc12debd6e24ec99e67faba047213f4";
+const  DB_KEY  = "f1de69db88c748ccb86375893a810c67";
 const { v4: uuidv4 } = require('uuid');
 
 const { Videogame, Genre } = require('./db.js');
@@ -99,7 +99,11 @@ server.get("/videogames" , async (req, res) => {
       }
     })
     AllSearchGames = dbgameSearch.concat(apigameSearch);
-    return res.json(AllSearchGames);
+    if(AllSearchGames.length < 1){
+      return res.send("vacio");
+    }else{
+      return res.json(AllSearchGames);
+    }  
 
 
 // SI NO TRAE SEARCH O ORDEN TRAIGO TODOS LOS JUEGOS DE MI LOCALHOST 

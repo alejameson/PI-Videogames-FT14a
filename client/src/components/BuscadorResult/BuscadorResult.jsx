@@ -19,17 +19,22 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 return (
     <div>
-        {search != "vacio" ?
-           <div> 
-            <div><h1>SEARCH GAMES</h1></div>
-            <Pagination gamesPerPage={gamesPerPage} totalGames={search.length} paginate={paginate}/>
-            <Games games={currentGames} loading={false}/>
-           </div> 
+        {search.length < 1 ?
+            <div className="loadingsearch">
+                <img src="https://cdn2.scratch.mit.edu/get_image/gallery/3887263_170x100.png" width="250" height="230"/>
+            </div>
+            : search != "vacio" ? (
+                <div> 
+                    <div><h1>SEARCH GAMES</h1></div>
+                    <Pagination gamesPerPage={gamesPerPage} totalGames={search.length} paginate={paginate}/>
+                    <Games games={currentGames} loading={false}/>
+                </div> 
+              )
             : (
                 <div>
                     <img src="https://images.hive.blog/p/62PdCouTvNPD4Ewnt81FpyJK4VTFfLrE49bSu5TkQabrMWnhCxHuC1GHZmpgn74kEmNfG7sXK55siP7adzGc45rdGCCY9a5oRqFzUerSqUe3V33?format=match&mode=fit" alt="" />
                 </div>
-            )
+              )
         }    
     </div>
 )

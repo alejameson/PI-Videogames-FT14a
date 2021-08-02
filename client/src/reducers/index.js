@@ -25,12 +25,10 @@ function rootReducer (state = initialState, action){
                 gamesLoaded: action.payload,
                 gamesMess: origin,
                 gamesMess2: origin2,
+                gamesFilter: origin2,
             }
 
         case SEARCH_GAMES:
-            if(!action.payload){
-                action.payload = "vacio";
-            }
             return {
                 ...state,
                 gameSearch: action.payload,
@@ -44,7 +42,7 @@ function rootReducer (state = initialState, action){
             optioncreat = state.gamesCreator;
         }
         if(action.orden === "AZ"){   
-            const order = optioncreat.sort(function(a,b) {
+            const order = state.gamesFilter.sort(function(a,b) {
                 var x = a.name.toLowerCase();
                 var y = b.name.toLowerCase();
                 return x < y ? -1 : x > y ? 1 : 0;
@@ -54,7 +52,7 @@ function rootReducer (state = initialState, action){
                     gameOrder: order,
                 }  
         }else if(action.orden === "ZA"){
-            const order = optioncreat.sort(function(a,b) {
+            const order = state.gamesFilter.sort(function(a,b) {
                 var x = a.name.toLowerCase();
                 var y = b.name.toLowerCase();
                 return x < y ? -1 : x > y ? 1 : 0;
@@ -64,7 +62,7 @@ function rootReducer (state = initialState, action){
                     gameOrder: order.reverse(),
                 }  
         }else if(action.orden === "MAYOR"){
-            const order = optioncreat.sort(function(a,b) {
+            const order = state.gamesFilter.sort(function(a,b) {
                 var x = a.rating;
                 var y = b.rating;
                 return x < y ? -1 : x > y ? 1 : 0;
@@ -74,7 +72,7 @@ function rootReducer (state = initialState, action){
                     gameOrder: order.reverse(),
                 }  
         }else if(action.orden === "MENOR"){
-            const order = optioncreat.sort(function(a,b) {
+            const order = state.gamesFilter.sort(function(a,b) {
                 var x = a.rating;
                 var y = b.rating;
                 return x < y ? -1 : x > y ? 1 : 0;

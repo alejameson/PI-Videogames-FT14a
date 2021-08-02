@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
     },
     plataforms: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("pc","xbox","ps5"),
       allowNull: false,
     },
     img: {
