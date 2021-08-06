@@ -4,11 +4,18 @@ const initialState = {
     gamesLoaded: [],
     gameSearch: [],
     gamesMess: [],
+
     gameOrder: [],
+    gameSearchOrder: [],
+    
     genres: [],
-    gamesMess2: [],
+
     gamesFilter: [],
+    gamesSearchFilter: [],
+
     gamesCreator: [],
+    gamesSearchCreator: [],
+
     gameById: [],
 }
 
@@ -24,7 +31,7 @@ function rootReducer (state = initialState, action){
                 ...state,
                 gamesLoaded: action.payload,
                 gamesMess: origin,
-                gamesMess2: origin2,
+                gamesCreator: origin,
                 gamesFilter: origin2,
             }
 
@@ -35,12 +42,6 @@ function rootReducer (state = initialState, action){
             }    
 
         case ORDER_GAMES:
-        let optioncreat = [];
-        if(state.gamesCreator.length < 1){
-            optioncreat = state.gamesMess;
-        }else{
-            optioncreat = state.gamesCreator;
-        }
         if(action.orden === "AZ"){   
             const order = state.gamesFilter.sort(function(a,b) {
                 var x = a.name.toLowerCase();
@@ -90,22 +91,25 @@ function rootReducer (state = initialState, action){
             }  
         
         case FILTER_GAMES: 
-          let optionfil = [];
-          if(state.gamesCreator.length < 1){
-              optionfil = state.gamesMess;
-          }else{
-              optionfil = state.gamesCreator;
-          }
             if(action.filter === "All"){
                 return {
                     ...state,
-                    gamesFilter: optionfil,
+                    gamesFilter: state.gamesCreator,
+                    gamesSearchFilter: state.gamesSearchCreator,
                 }
             }else {
                 const filname = action.filter;
                 console.log(filname);
                 const filtrado = [];
-                optionfil.map((game) => {
+                state.gamesCreator.map((game) => {
+                    game.genres.map(g => {
+                        if(g.name === filname){
+                            filtrado.push(game);
+                        }
+                    })
+                });
+                const filtradoSearch = [];
+                state.gamesSearchCreator.map((game) => {
                     game.genres.map(g => {
                         if(g.name === filname){
                             filtrado.push(game);
@@ -116,6 +120,7 @@ function rootReducer (state = initialState, action){
                 return {
                     ...state,
                     gamesFilter: filtrado,
+                    gamesSearchFilter: filtradoSearch,
                 }
             }    
             
@@ -125,18 +130,23 @@ function rootReducer (state = initialState, action){
                 return {
                     ...state,
                     gamesCreator: state.gamesMess,
+                    gamesSearchCreator: state.gameSearch,
                 }
             }else if(action.creator === "mygames"){
                 const mygames = state.gamesMess.filter((game) => game.id.length > 1)
+                const mygameSearch = state.gameSearch.filter((game) => game.id.length > 1)
                 return {
                     ...state,
                     gamesCreator: mygames,
+                    gamesSearchCreator: mygameSearch,
                 }
             }else if(action.creator === "apigames"){
                 const apigames = state.gamesMess.filter((game) => typeof game.id === "number")
+                const apigameSearch = state.gameSearch.filter((game) => typeof game.id === "number")
                 return {
                     ...state,
                     gamesCreator: apigames,
+                    gamesSearchCreator: apigameSearch,
                 }
             }
 
